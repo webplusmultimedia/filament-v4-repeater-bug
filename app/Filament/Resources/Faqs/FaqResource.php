@@ -29,6 +29,7 @@ class FaqResource extends Resource
             ->components([
                 Section::make([
                     Components\TextInput::make('title')
+
                         ->required()
                         ->label('Titre')
                         ->hint('Le titre de la FAQ'),
@@ -37,7 +38,7 @@ class FaqResource extends Resource
                         ->default(true)
                         ->inline()
                         ->hint('Activez ou désactivez cette FAQ'),
-                ]),
+                ])->columnSpanFull(),
 
                 Components\Repeater::make('contents')
                     ->minItems(1)

@@ -23,6 +23,7 @@ class FaqFactory extends Factory
                 $this->makeContent(),
                 $this->makeContent(),
             ],
+            'is_active' => $this->faker->boolean(),
         ];
     }
 
