@@ -3,4 +3,6 @@
 
 ### See the bug
 
-<video src="https://github.com/webplusmultimedia/filament-v4-repeater-bug/doc/bug-repeater.webm" controls width="100%"></video>
+<video width="320" height="240" controls>
+  <source src="https://github.com/webplusmultimedia/filament-v4-repeater-bug/raw/main/doc/bug-repeater.webm" type="video/mp4">
+</video>
