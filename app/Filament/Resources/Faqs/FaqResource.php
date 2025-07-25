@@ -26,10 +26,10 @@ class FaqResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return $schema
+            ->columns(1)
             ->components([
                 Section::make([
                     Components\TextInput::make('title')
-
                         ->required()
                         ->label('Titre')
                         ->hint('Le titre de la FAQ'),
@@ -40,24 +40,32 @@ class FaqResource extends Resource
                         ->hint('Activez ou désactivez cette FAQ'),
                 ])->columnSpanFull(),
 
-                Components\Repeater::make('contents')
-                    ->minItems(1)
-                    ->maxItems(10)
-                    ->hint('Vous pouvez ajouter plusieurs questions/réponses.')
+                Section::make('Questions/Réponses')
+                    ->description('Ajoutez les questions et réponses de la FAQ')
+                    ->collapsible()
                     ->schema([
-                        Components\TextInput::make('question')
-                            ->required()
-                            ->label('Question'),
-                        Components\MarkdownEditor::make('reponse')
-                            ->required()
-                            ->label('Réponse')
-                            ->maxLength(1000)
-                            ->toolbarButtons([
-                                ['bold', 'italic', 'strike'],
-                                ['undo', 'redo'],
-                            ]),
-                    ])
-                    ->columnSpanFull(),
+                        Components\Repeater::make('contents')
+
+                            ->minItems(1)
+                            ->maxItems(10)
+                            ->schema([
+                                Components\TextInput::make('question')
+                                    ->required()
+                                    ->label('Question'),
+                                Components\MarkdownEditor::make('answer')
+                                    ->required()
+                                    ->label('Réponse')
+                                    ->maxLength(1000)
+                                    ->toolbarButtons([
+                                        ['bold', 'italic', 'strike'],
+                                        ['undo', 'redo'],
+                                    ]),
+                            ])
+                            ->itemLabel(fn ($state) => $state['question'] ?? 'Nouvelle question')
+                            ->collapsible()
+                            ->collapsed()
+                            ->columnSpanFull(),
+                    ]),
             ]);
     }
 
